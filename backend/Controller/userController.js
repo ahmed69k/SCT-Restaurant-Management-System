@@ -5,21 +5,24 @@ const userController = {
     register: async(req,res)=>{
         try{
             const {name,email,password} = req.body;
-            const existingUser = userSchema.findOne({email})
+            const existingUser = await userSchema.findOne({email})
             if(existingUser){
                 return res.status(409).json("Email already in use!")
             }
-            const hashedPass = bcrypt.hash(password)
+            const hashedPass = await bcrypt.hash(password,10)
             const newUser = new userSchema({
+                name: name,
                 email: email,
                 password: hashedPass,
-                name: name
+                
             })
             await newUser.save()
-            res.status(200).json("User created successfully!")
+            return res.status(200).json({message: "User Registered Successfully!",newUser})
         }
         catch(e){
-            res.status(500).json("Error Registering User:",e)
+            res.status(500).json("Error Registering User:" + e)
         }
     }
 }
+
+module.exports = userController;
