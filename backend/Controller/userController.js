@@ -31,6 +31,7 @@ const userController = {
         try{
             const {email, password} = req.body;
             const foundUser = await userSchema.findOne({email})
+            console.log(foundUser)
             if(!foundUser){
                 return res.status(404).json({message: "Email not found!"})
             }
@@ -40,8 +41,11 @@ const userController = {
             }
             const token = jwt.sign(
                 { 
+                user:{
                     id: foundUser._id,
                     role: foundUser.role
+                    }
+                    
                 },
                 process.env.SECRET_KEY,
                 {expiresIn: 3 * 60 * 60}
@@ -67,14 +71,59 @@ const userController = {
     delete: async(req,res) =>{
         try{
             const user = await userSchema.findById(req.params.id)
-            if(!user){
-                return res.status(404).json({message: "User not found!"})
-            }
-            const deleteUser = await userSchema.findByIdAndDelete(req.params.id)
+            if(!user) return res.status(404).json({message: "User not found!"})
+            console.log("User:",user)
+            if(req.user.id != req.params.id && req.user.role != "Admin") return res.status(403).json({message: "You can only delete your account!"})
+            await userSchema.findByIdAndDelete(req.params.id)
             return res.status(200).json({message: "User deleted successfully!"})
         }
         catch(e){
-            return res.status(500).json({message: "Error logging out!", e})
+            return res.status(500).json({message: "Error deleting user!", e})
+        }
+    },
+    getUser: async(req,res) => {
+        try{
+            const user = await userSchema.findById(req.params.id);
+            if(!user){
+                return res.status(404).json({message: "User not found!"})
+            }
+            return res.status(200).json({message: "User found!", User: user})
+        }
+        catch(e){
+            return res.status(500).json({message: "Error getting user!",e})
+        }
+    },
+    getUsers: async(req,res) => {
+        try{
+            const users = await userSchema.find()
+            if(!users){
+                return res.status(404).json({message: "No users found!"})
+            }
+            return res.status(200).json({message: "Users found:", users})
+        }
+        catch(e){
+            return res.status(500).json({message: "Error getting users!",e})
+        }
+    },
+    updateUser: async(req,res)=>{
+        try{
+            const id = req.params.id
+            const {name, email, password} = req.body
+            const user = await userSchema.findById(id)
+            if(req.user.id != id && req.user.role != "Admin") return res.status(403).json({message: "You can only update your own account!"})
+            if(!user) return res.status(404).json({message:"User not found!"})
+            const updatedData ={
+                name: name,
+                email: email
+            }
+            if(password){
+                updatedData.password = await bcrypt.hash(password, 10)
+            }
+            const updatedUser = await userSchema.findByIdAndUpdate(id,updatedData,{new: true})
+            return res.status(200).json({message: "User updated!", User: updatedUser})
+        }
+        catch(e){
+            return res.status(500).json({message: "Error updating user!",e})
         }
     }
 }
