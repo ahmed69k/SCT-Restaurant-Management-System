@@ -1,31 +1,24 @@
-
 nav{
-    height: 70px;
-    background-color: rgb(11, 111, 170);
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    font-size: 20px;
+    position: fixed;
+    background-color: rgb(50, 14, 14);
+    width: 100%;
+    height: 50px;
+    align-content: center;
+    border-radius: 0 0 20px 20px;
 }
 ul{
-    list-style: none;
-    color: white;
-    text-decoration: none;
     display: flex;
     flex-direction: row;
-    gap: 30px;
-    margin-right: 20px;
-    justify-items: center;
-    
+    gap: 20px;
+    list-style: none;
+    align-content: center;
+    width: auto;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
-nav a{
+ul li a{
     text-decoration: none;
     color: white;
+    
 }
-nav li{
-    transition: transform 0.3s ease;
-}
-nav li:hover{
-    transform: scale(1.1);
-}
-
