@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
-const User = require('../../user-service/Model/userModel')
-const Table = require('../../Model/Table')
 
-const orderSchema = mongoose.Schema({
+const reservationSchema = mongoose.Schema({
     customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -39,4 +37,4 @@ const orderSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("Order", orderSchema)
+module.exports = mongoose.model("Reservation", reservationSchema)

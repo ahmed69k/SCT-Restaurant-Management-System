@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-const User = require('../../user-service/Model/userModel')
 
 const feedbackSchema = mongoose.Schema({
     userId:{
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
+        type: String
     },
     rating: {
         type: Number,
