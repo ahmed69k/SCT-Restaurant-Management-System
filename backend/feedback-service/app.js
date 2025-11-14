@@ -1,7 +1,7 @@
 require('dotenv').config({path: './.env'})
 const express = require('express')
 const mongoose = require('mongoose')
-const userRouter = require('./Router/userRouter.js')
+const feedbackRouter = require('./Router/feedbackRouter.js')
 const cookieParser = require('cookie-parser')
 
 
@@ -18,7 +18,7 @@ try{
 catch(e){
     console.log("Error connecting to db",e)
 }
-app.use('/api/v1',userRouter)
+app.use('/api/v1',feedbackRouter)
 
 app.listen(process.env.PORT,()=>{
     console.log(`Currently Running on ${process.env.PORT}`) 

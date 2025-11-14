@@ -1,11 +1,23 @@
 const feedbackSchema = require('../Model/Feedback');
-const userSchema = require('../../user-service/Model/userModel')
+const axios = require('axios')
 
+async function getUserData(userId){
+    try{
+        const response = await axios.get(
+            `http://localhost:4001/api/v1/internal/users/${userId}`,
+            {headers: {"x-secret-code": process.env.USER_SERVICE_SECRET}}
+        )
+        return response.data.User
+    }
+    catch(e){
+        console.log("Error fetching user data:",e)
+    }
+}
 const feedbackController = {
 
     submitFeedback: async(req,res)=>{
         try{
-            const user = await userSchema.findById(req.user.id)
+            const user = await getUserData(req.user.id)
             const {message, rating} = req.body;
             if(!user){
                 return res.status(404).json({message: "User not found!"})
