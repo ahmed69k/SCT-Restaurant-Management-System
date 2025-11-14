@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../user-service/Model/userModel')
+const User = require('../../user-service/Model/userModel')
 
 const feedbackSchema = mongoose.Schema({
     userId:{

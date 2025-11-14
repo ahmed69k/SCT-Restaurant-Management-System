@@ -1,5 +1,5 @@
 const feedbackSchema = require('../Model/Feedback');
-const userSchema = require('../user-service/Model/userModel')
+const userSchema = require('../../user-service/Model/userModel')
 
 const feedbackController = {
 

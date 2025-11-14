@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const cookieParser = require('cookie-parser')
 
 const userRouter = require("./user-service/Router/userRouter");
-const feedbackRouter = require('./Routes/feedbackRouter')
+const feedbackRouter = require('./feedback-service/Router/feedbackRouter')
 const AuthenticationMiddleware = require('./Middleware/AuthenticationMiddleware');
 
 const app = express()
