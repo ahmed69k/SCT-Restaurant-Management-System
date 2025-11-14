@@ -13,10 +13,14 @@
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "backend/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "startall": "concurrently \"npm --prefix backend/user-service start\" \"npm --prefix backend/feedback-service start\" \"npm --prefix backend/order-service start\" \"npm --prefix backend/reservation-service start\" \"npm --prefix backend/table-service start\" \"npm --prefix backend/menuItem-service start\""
+
+
+
+
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -28,5 +32,8 @@
     "mongoose": "^8.19.4",
     "nodemon": "^3.1.11",
     "pm2": "^6.0.13"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
