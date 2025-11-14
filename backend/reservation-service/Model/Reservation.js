@@ -1,39 +1,37 @@
 const mongoose = require('mongoose')
 
 const reservationSchema = mongoose.Schema({
-    customer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+    date: {
+        type: Date,
+        default: Date.now,
         required: true
     },
-    foodType:{
-        type: String,
-        enum: ["Pizza","Burger","Pasta","Kid's Meal", "Fries"]
+    time: {
     },
-    drink:{
-        type:String,
-        enum: ["VCola", "VCola Zero", "Water"]
+    numberOfGuests:{
+        type: String, 
+        required: true,
+        match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+    },
+    status:{
+        type: String,
+        enum:["Ready","Being Prepared","Pending"],
+        default: "Pending"
     },
     table:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "Table",
         required: false
     },
-    reservationTime:{
-        type: Date,
-        default: Date.now
-    },
-    numberOfGuests:{
-        type: Number,
+    customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
-    status:{
-        type: String,
-        enum:["Ready","Being Prepared","Pending"],
-        default: "Pending"
-
-
-    }
+    // menuItems: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "MenuItem"
+    // }],
 
 })
 
