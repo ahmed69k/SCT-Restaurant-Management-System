@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const User = require('./User')
+const User = require('../user-service/Model/userModel')
 const Table = require('./Table')
 
 const orderSchema = mongoose.Schema({
