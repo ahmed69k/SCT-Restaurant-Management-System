@@ -6,6 +6,6 @@ const port = process.env.PORT
 const app = express()
 
 app.listen(port, ()=>{
-    console.log(`Menu Item running on port ${port}`)
+    console.log(`Menu Item Running On ${port}`)
 })
 

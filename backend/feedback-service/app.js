@@ -21,5 +21,5 @@ catch(e){
 app.use('/api/v1',feedbackRouter)
 
 app.listen(process.env.PORT,()=>{
-    console.log(`Currently Running on ${process.env.PORT}`) 
+    console.log(`Feedback Running On ${process.env.PORT}`) 
 })
