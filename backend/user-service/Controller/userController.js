@@ -1,4 +1,4 @@
-const userSchema = require('../Model/User')
+const userSchema = require('../Model/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -48,7 +48,8 @@ const userController = {
                     
                 },
                 process.env.SECRET_KEY,
-                {expiresIn: 3 * 60 * 60}
+                {expiresIn: "3h"}
+                
             )
             const cookieOptions = {
                 httpOnly:true,

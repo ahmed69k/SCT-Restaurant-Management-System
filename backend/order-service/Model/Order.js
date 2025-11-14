@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const User = require('./User')
-const Table = require('./Table')
+const User = require('../../user-service/Model/userModel')
+const Table = require('../../Model/Table')
 
 const orderSchema = mongoose.Schema({
     customer: {
