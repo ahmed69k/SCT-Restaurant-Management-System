@@ -18,7 +18,7 @@ try{
 catch(e){
     console.log("Error connecting to db",e)
 }
-app.use('/api/v1',feedbackRouter)
+app.use('/api/v1/feedback',feedbackRouter)
 
 app.listen(process.env.PORT,()=>{
     console.log(`Feedback Running On ${process.env.PORT}`) 
