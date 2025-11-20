@@ -9,7 +9,14 @@ const mongoose = require('mongoose')
     seatingType:{
         type: String,
         enum: ["Double","Booth","Couch"]
-    }
+    },
+
+    reservation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Reservation',
+        required: true
+    },
+
  })
 
  module.exports = mongoose.model('Table', tableSchema)
