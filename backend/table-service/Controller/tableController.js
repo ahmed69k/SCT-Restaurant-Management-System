@@ -16,30 +16,6 @@ async function getReservationData(reservationId) {
 
 const tableController = {
 
-    createTable: async (req, res)=>{
-        try{
-            const reservation = await getReservationData(req.body.reservation)
-            const {seatingType} = req.body;
-
-            if(!reservation) {
-                return res.status(404).json({message: "Reservation not found"})
-            }
-
-            const newTable = new tableSchema({
-
-                seatingType: seatingType,
-                reservation: reservation._id,
-
-            });
-
-            await newTable.save();
-            return res.status(201).json({message: "Table created sucessfully", newTable});
-        }
-        catch(error){
-            return res.status(500).json({message: "Error created table", error});
-        }
-    },
-
     updateTable: async(req, res)=>{
         try{
             const {tableId}= req.params;
