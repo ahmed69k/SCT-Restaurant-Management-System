@@ -5,9 +5,9 @@ const AuthorizationMiddleware = require('../Middleware/AuthorizationMiddleware')
 
 const router = express.Router();
 
-router.post('/feedback',AuthenticationMiddleware, feedbackController.submitFeedback);
-router.put('/feedback/:feedbackId', feedbackController.updateFeedback);
-router.delete('/feedback/:feedbackId', feedbackController.deleteFeedback);
-router.get('/feedback', feedbackController.getAllFeedback);
+router.post('/',AuthenticationMiddleware, feedbackController.submitFeedback);
+router.put('/:feedbackId', feedbackController.updateFeedback);
+router.delete('/:feedbackId', feedbackController.deleteFeedback);
+router.get('/', feedbackController.getAllFeedback);
 
 module.exports = router;
