@@ -1,10 +1,10 @@
-require('dotenv').config()
+require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const orderRouter = require('./Router/orderRouter')
 const mongoose = require('mongoose')
 
-const port = 3002;
+const port = process.env.ORDER_PORT;
 const app = express()
 const db_url = process.env.DB_URL;
 

@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.send('MenuItem Service is running');
 });
 
-const PORT = 3001;
+const PORT = process.env.MENUITEM_PORT;
 app.listen(PORT, () => {
   console.log(`MenuItem Service running on port ${PORT}`);
 });

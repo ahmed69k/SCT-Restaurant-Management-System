@@ -5,7 +5,7 @@ const orderModel = require('../Model/orderModel')
 async function getUserData(userId){
     try{
         const response = await axios.get(
-            `http://localhost:4001/api/v1/internal/users/${userId}`,
+            `http://localhost:3001/api/v1/internal/users/${userId}`,
             {headers: {"x-secret-code": process.env.USER_SERVICE_SECRET}}
         )
         return response.data.User
@@ -17,7 +17,7 @@ async function getUserData(userId){
 async function getMenuItemData(menuItemId){
     try{
         const response = await axios.get(
-            `http://localhost:4001/api/v1/internal/menuItems/${menuItemId}`,
+            `http://localhost:3001/api/v1/internal/menuItems/${menuItemId}`,
             {headers: {"x-secret-code": process.env.USER_SERVICE_SECRET}}
         )
         return response.data.menuItem

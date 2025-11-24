@@ -1,4 +1,4 @@
-require('dotenv').config({path: './.env'})
+require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
-const port = 3003
+const port = process.env.RESERVATION_PORT
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
