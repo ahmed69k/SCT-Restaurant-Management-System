@@ -1,4 +1,4 @@
-require('dotenv').config({path: './.env'})
+require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
+const port = process.env.RESERVATION_PORT
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +19,6 @@ catch(e){
     console.log("Error connecting to db",e)
 }
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Reservation Running On ${process.env.PORT}`) 
+app.listen(port,()=>{
+    console.log(`Reservation Running On ${port}`) 
 })

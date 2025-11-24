@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Reservation = require('../../reservation-service/Model/Reservation');
 
 const feedbackSchema = mongoose.Schema({
     userId:{
@@ -9,10 +10,19 @@ const feedbackSchema = mongoose.Schema({
         enum: [1,2,3,4,5],
         required: true
     },
-    description: {
+    comment: {
         type: String,
         required: false,
-    }
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    Reservation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Reservation',
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Feedback', feedbackSchema)

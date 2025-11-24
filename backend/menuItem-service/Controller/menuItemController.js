@@ -1,7 +1,7 @@
-import MenuItem from '../Model/menuItemModel';
+const MenuItem = require('../Model/menuItemModel.js').default;
 
 // GET /api/menu → public: get all available items
-export const getMenu = async (req, res) => {
+const getMenu = async (req, res) => {
   try {
     const items = await MenuItem.find({ isAvailable: true })
       .select('-__v')
@@ -13,7 +13,7 @@ export const getMenu = async (req, res) => {
 };
 
 // GET /api/menu/all → admin: get all items (including unavailable)
-export const getAllItems = async (req, res) => {
+const getAllItems = async (req, res) => {
   try {
     const items = await MenuItem.find().sort({ category: 1 });
     res.json(items);
@@ -23,7 +23,7 @@ export const getAllItems = async (req, res) => {
 };
 
 // POST /api/menu → admin only
-export const createItem = async (req, res) => {
+const createItem = async (req, res) => {
   const { name, description, price, category, image } = req.body;
   if (!name || !description || !price || !category) {
     return res.status(400).json({ message: 'All fields required' });
@@ -38,7 +38,7 @@ export const createItem = async (req, res) => {
 };
 
 // PUT /api/menu/:id → admin only
-export const updateItem = async (req, res) => {
+const updateItem = async (req, res) => {
   try {
     const item = await MenuItem.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -52,7 +52,7 @@ export const updateItem = async (req, res) => {
 };
 
 // DELETE /api/menu/:id → admin only
-export const deleteItem = async (req, res) => {
+const deleteItem = async (req, res) => {
   try {
     const item = await MenuItem.findByIdAndDelete(req.params.id);
     if (!item) return res.status(404).json({ message: 'Item not found' });
@@ -60,4 +60,12 @@ export const deleteItem = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
+};
+
+module.exports = {
+  getMenu,
+  getAllItems,
+  createItem,
+  updateItem,
+  deleteItem,
 };
