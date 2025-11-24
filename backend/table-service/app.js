@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
+const port = 3004
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +19,6 @@ catch(e){
     console.log("Error connecting to db",e)
 }
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Table Running On ${process.env.PORT}`) 
+app.listen(port,()=>{
+    console.log(`Table Running On ${port}`) 
 })

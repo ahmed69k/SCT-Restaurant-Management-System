@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
+const port = 3000;
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
@@ -18,8 +19,8 @@ try{
 catch(e){
     console.log("Error connecting to db",e)
 }
-app.use('/api/v1',feedbackRouter)
+app.use('/api/v1/feedback',feedbackRouter)
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Feedback Running On ${process.env.PORT}`) 
+app.listen(port,()=>{
+    console.log(`Feedback Running On ${port}`) 
 })
