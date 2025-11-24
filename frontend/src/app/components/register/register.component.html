@@ -1,0 +1,13 @@
+<div>
+    <form (ngSubmit) = "handleRegister()">
+        <input type="text" [(ngModel)] = "name" name="name">
+        <input type="text" [(ngModel)] = "email" name="email">
+        <input type="text" [(ngModel)] = "password" name="password">
+        <select name="role"  [(ngModel)] = "role">
+            <option value="" disabled selected>Select role...</option>
+            <option value="User" >User</option>
+            <option value="Staff">Staff</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </form>
+</div>
