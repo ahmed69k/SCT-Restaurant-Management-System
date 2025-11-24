@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.send('MenuItem Service is running');
 });
 
-const PORT = process.env.PORT || 5002;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`MenuItem Service running on port ${PORT}`);
 });

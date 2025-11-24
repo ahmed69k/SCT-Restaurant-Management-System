@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 
 
 const app = express()
+const port = 3005
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
@@ -20,6 +21,6 @@ catch(e){
 }
 app.use('/api/v1',userRouter)
 
-app.listen(process.env.PORT,()=>{
-    console.log(`User Running On ${process.env.PORT}`) 
+app.listen(port,()=>{
+    console.log(`User Running On ${port}`) 
 })

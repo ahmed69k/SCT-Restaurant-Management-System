@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser')
 const orderRouter = require('./Router/orderRouter')
 const mongoose = require('mongoose')
 
-const port = process.env.PORT;
+const port = 3002;
 const app = express()
 const db_url = process.env.DB_URL;
 
