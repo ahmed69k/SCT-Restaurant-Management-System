@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const menuItemRoutes = require('./Router/menuItemRoutes');
+const menuItemRoutes = require('./Router/menuItemRouter');
 
 const app = express();
 app.use(cors());

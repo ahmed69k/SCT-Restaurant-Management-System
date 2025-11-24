@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const menuItemSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -10,4 +10,4 @@ const menuItemSchema = new mongoose.Schema({
   addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } // from user-service later
 }, { timestamps: true });
 
-export default mongoose.model('MenuItem', menuItemSchema);
+module.exports = mongoose.model('MenuItem', menuItemSchema);
