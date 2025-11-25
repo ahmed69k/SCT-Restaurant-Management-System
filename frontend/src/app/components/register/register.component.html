@@ -1,13 +1,15 @@
-<div>
+<div class="container">
+    <h1>Register</h1>
     <form (ngSubmit) = "handleRegister()">
-        <input type="text" [(ngModel)] = "name" name="name">
-        <input type="text" [(ngModel)] = "email" name="email">
-        <input type="text" [(ngModel)] = "password" name="password">
+        <input type="name" [(ngModel)] = "name" name="name" placeholder="Enter your name...">
+        <input type="email" [(ngModel)] = "email" name="email" placeholder="Enter your email...">
+        <input type="password" [(ngModel)] = "password" name="password" placeholder="Enter your password...">
         <select name="role"  [(ngModel)] = "role">
-            <option value="" disabled selected>Select role...</option>
+            <option value="" disabled>Select role...</option>
             <option value="User" >User</option>
             <option value="Staff">Staff</option>
             <option value="Admin">Admin</option>
         </select>
+        <button type="submit"> Submit</button>
     </form>
 </div>

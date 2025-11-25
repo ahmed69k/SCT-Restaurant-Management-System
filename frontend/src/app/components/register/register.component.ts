@@ -1,12 +1,12 @@
-import axios from 'axios'
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastService } from '../../shared/ToastService';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule], // HttpClientModule is not needed here since HttpClient is provided globally
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

@@ -33,12 +33,13 @@ const userController = {
             const foundUser = await userSchema.findOne({email})
             console.log(foundUser)
             if(!foundUser){
-                return res.status(404).json({message: "Email not found!"})
+                return res.status(404).json({message: "User not found!"})
             }
             const passwordCorrect = await bcrypt.compare(password, foundUser.password)
             if(!passwordCorrect){
                 return res.status(500).json({message: "Pasword is incorrect!"})
             }
+            console.log(process.env.SECRET_KEY)
             const token = jwt.sign(
                 { 
                 user:{
@@ -92,6 +93,16 @@ const userController = {
         }
         catch(e){
             return res.status(500).json({message: "Error getting user!",e})
+        }
+    },
+    getCurrentUser: async(req,res) =>{
+        try{
+            const user = await userSchema.findById(req.user.id).select('-password')
+            if(!user) return res.status(404).json({message:"User not found!"})
+            return res.status(200).json({user})
+        }
+        catch(e){
+            return res.status(500).json({message:"Error getting current user!"})
         }
     },
     getUsers: async(req,res) => {
