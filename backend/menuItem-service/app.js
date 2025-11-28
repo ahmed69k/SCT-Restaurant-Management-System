@@ -8,6 +8,11 @@ const menuItemRoutes = require('./Router/menuItemRouter');
 const app = express();
 app.use(cookieParser())
 app.use(express.json());
+app.use(cors({
+    origin: process.env.FRONTEND_LINK,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}))
 
 // Connect to MongoDB (each service has its own DB or collection)
 mongoose.connect('mongodb://localhost:27017/menuitem-db')
