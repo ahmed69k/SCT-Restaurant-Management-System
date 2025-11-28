@@ -2,6 +2,7 @@ require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const reservationRouter = require('./Router/reservationRouter')
 
 
 
@@ -18,6 +19,7 @@ try{
 catch(e){
     console.log("Error connecting to db",e)
 }
+app.use('/api/v1/reservations',reservationRouter)
 
 app.listen(port,()=>{
     console.log(`Reservation Running On ${port}`) 
