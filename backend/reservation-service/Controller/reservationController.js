@@ -1,124 +1,131 @@
-const Reservation = require("../Model/Reservation");
-const Table = require("../../table-service/Model/Table");
-const axios = require("axios");
+const axios = require('axios');
+const reservationModel = require('../Model/Reservation');
+
+
 
 async function getUserData(userId) {
     try {
         const response = await axios.get(
-            `http://localhost:3001/api/v1/internal/users/${userId}`,
-            { headers: { "x-secret-code": process.env.USER_SERVICE_SECRET } }
+            `http://localhost:3000/api/v1/internal/users/${userId}`,
+            {
+                headers: {
+                    "x-secret-code": process.env.SERVICE_SECRET
+                }
+            }
         );
-        return response.data.User;
-    } catch (error) {
-        console.log("Error fetching user data:", error);
+        return response.data.user;
+    } catch (e) {
+        console.log("Error fetching user data:", e.message);
+        return null; 
+    }
+}
+
+async function getTableData(tableId) {
+    try {
+        const response = await axios.get(
+            `http://localhost:3005/api/v1/internal/tables/${tableId}`,
+            {
+                headers: {
+                    "x-secret-code": process.env.SERVICE_SECRET
+                }
+            }
+        );
+        return response.data.table;
+    } catch (e) {
+        console.log("Error fetching table data:", e.message);
         return null;
     }
 }
 
-const reservationController = {
 
+
+const reservationController = {
+    
     createReservation: async (req, res) => {
         try {
-            const user = await getUserData(req.user.id);
-            if (!user) {
-                return res.status(404).json({ message: "User not found" });
-            }
+            const userId = req.user?.id;
+            if (!userId)
+                return res.status(403).json({ message: "User not logged in!" });
 
-            const {
-                foodType,
-                drink,
-                seatingType,
-                reservationTime,
-                numberOfGuests
-            } = req.body;
+            const { tableId, date, time, numberOfGuests } = req.body;
 
-            // validate seating type
-            const validSeatingTypes = ["Double", "Booth", "Couch"];
-            if (!validSeatingTypes.includes(seatingType)) {
-                return res.status(400).json({ message: "Invalid seating type" });
-            }
+            if (!tableId || !date || !time || !numberOfGuests)
+                return res.status(400).json({ message: "Missing reservation fields!" });
 
-            // find available table
-            const table = await Table.findOne({ isFree: true, seatingType });
-            if (!table) {
-                return res.status(404).json({
-                    message: "No free tables available for this seating type"
-                });
-            }
+            const table = await getTableData(tableId);
+            if (!table)
+                return res.status(404).json({ message: "(R) Table not found!", table });
 
-            // create reservation
-            const reservation = await Reservation.create({
-                customer: req.user.id,
-                foodType,
-                drink,
-                table: table._id,
-                reservationTime,
-                numberOfGuests
+            const newReservation = await reservationModel.create({
+                table: tableId,
+                numberOfGuests: numberOfGuests,
+                customer: userId,
+                date: date,
+                time: time
             });
-
-            // mark table as occupied
-            table.isFree = false;
-            await table.save();
-
-            res.status(201).json({
-                message: "Reservation created successfully",
-                reservation
+            return res.status(200).json({
+                message: "Reservation created successfully!",
+                reservation: newReservation
             });
-
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: "Internal server error" });
+        } catch (e) {
+            return res.status(500).json({
+                message: "Error creating reservation!",
+                error: e.message
+            });
         }
     },
-
-    // GET all reservations
-    getAllReservations: async (req, res) => {
-        try {
-            const reservations = await Reservation.find()
-                .populate("customer")
-                .populate("table");
-
-            res.status(200).json({ reservations });
-        } catch (error) {
-            res.status(500).json({ message: "Internal server error" });
+    getAllReservations:async(req,res) =>{
+        try{
+            const reservations = await reservationModel.find()
+            if(!reservations) return res.status(404).json({message: "Reservations not found!"})
+            return res.status(200).json({message: "Reservations found!", reservations})
+        }
+        catch(e){
+            return res.status(500).json("Error getting all reservations!", e)
         }
     },
-
-    // GET reservations of logged-in user
-    getMyReservations: async (req, res) => {
-        try {
-            const reservations = await Reservation.find({
-                customer: req.user.id
-            }).populate("table");
-
-            res.status(200).json({ reservations });
-        } catch (error) {
-            res.status(500).json({ message: "Internal server error" });
+    getReservationById:async(req,res) =>{
+        try{
+            const id = req.params.id
+            const reservation = await reservationModel.findById(id)
+            if(!reservation) return res.status(404).json({message: "Reservation not found!"})
+            res.status(200).json({message:"Reservation found!",reservation})
+        }
+        catch(e){
+            return res.status(500).json({message:"Error getting reservation by id!",e})
         }
     },
-
-    // DELETE reservation
-    deleteReservation: async (req, res) => {
+    getMyReservations:async(req,res)=>{
+        try{
+        const user = req.user.id
+        const reservations = await reservationModel.find({customer:user})
+        if(!reservations) return res.status(404).json({message:"User Reservations not found!"})
+        return res.status(200).json({message:"User reservations found!",reservations})            
+        }
+        catch(e){
+            return res.status(500).json({message: "Error getting user reservations!",e})
+        }
+    },
+    cancelReservation: async (req, res) => {
         try {
-            const reservation = await Reservation.findById(req.params.id);
+            const reservationId = req.params.id;
+            if (!reservationId)
+                return res.status(400).json({ message: "Reservation ID is required!" });
 
-            if (!reservation)
-                return res.status(404).json({ message: "Reservation not found" });
+            const deleted = await reservationModel.findByIdAndDelete(reservationId);
 
-            // free the table again
-            if (reservation.table) {
-                const table = await Table.findById(reservation.table);
-                if (table) {
-                    table.isFree = true;
-                    await table.save();
-                }
-            }
+            if (!deleted)
+                return res.status(404).json({ message: "Reservation not found!" });
 
-            await reservation.deleteOne();
-
-            res.status(200).json({ message: "Reservation deleted successfully" });
-        } catch (error) {
-            res.status(500).json({ message: "Internal server error" });
+            return res.status(200).json({
+                message: "Reservation cancelled successfully!",
+                reservation: deleted
+            });
+        } catch (e) {
+            return res.status(500).json({
+                message: "Error cancelling reservation!",
+                error: e.message
+            });
         }
     }
 };

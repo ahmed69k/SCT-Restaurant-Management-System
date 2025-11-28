@@ -4,7 +4,7 @@ const axios = require('axios');
 async function getReservationData(reservationId) {
     try{
         const response = await axios.get(
-            `http://localhost:4004/api/v1/internal/reservations/${reservationId}`,
+            `http://localhost:3004/api/v1/internal/reservations/${reservationId}`,
             {headers: {"x-secret-code": process.env.RESERVATION_SERVICE_SECRET}}
         )
         return response.data.Reservation
@@ -18,17 +18,11 @@ const tableController = {
 
     createTable: async (req, res)=>{
         try{
-            const reservation = await getReservationData(req.body.reservation)
             const {seatingType} = req.body;
-
-            if(!reservation) {
-                return res.status(404).json({message: "Reservation not found"})
-            }
 
             const newTable = new tableSchema({
 
                 seatingType: seatingType,
-                reservation: reservation._id,
 
             });
 
@@ -58,7 +52,7 @@ const tableController = {
         }
     },
 
-    deletedTable: async(req, res)=> {
+    deleteTable: async(req, res)=> {
 
         try{
             const {tableId} = req.params;
@@ -85,7 +79,7 @@ const tableController = {
     getTableById: async(req,res)=>{
         try{
             const {tableId} = req.params;
-            const table = await tableSchema.findById(tableId).populate('reservation');
+            const table = await tableSchema.findById(tableId);
             
             if(!table){
                 return res.status(404).json({message: "Table not found!"});

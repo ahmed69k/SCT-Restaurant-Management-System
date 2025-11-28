@@ -3,15 +3,15 @@ const mongoose = require('mongoose')
 const reservationSchema = mongoose.Schema({
     date: {
         type: Date,
-        default: Date.now,
         required: true
     },
     time: {
+        type: String,
+        required:true
     },
     numberOfGuests:{
-        type: String, 
-        required: true,
-        match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/
+        type: Number, 
+        required: true
     },
     status:{
         type: String,
