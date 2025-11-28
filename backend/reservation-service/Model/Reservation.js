@@ -3,10 +3,11 @@ const mongoose = require('mongoose')
 const reservationSchema = mongoose.Schema({
     date: {
         type: Date,
-        default: Date.now,
         required: true
     },
     time: {
+        type: String,
+        required:true
     },
     numberOfGuests:{
         type: Number, 
