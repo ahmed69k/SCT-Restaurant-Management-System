@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 
 try{
-    mongoose.connect('mongodb://localhost:27017/order_db')
+    mongoose.connect('mongodb://localhost:27017/reservation_db')
     console.log("Database connected!")
 }
 catch(e){

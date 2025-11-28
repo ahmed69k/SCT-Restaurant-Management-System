@@ -49,19 +49,17 @@ const reservationController = {
 
             const { tableId, reservationDate, reservationTime, numberOfGuests } = req.body;
 
-            if (!tableId || !reservationDate || !reservationTime || !numberOfGuests)
-                return res.status(400).json({ message: "Missing reservation fields!" });
+            // if (!tableId || !reservationDate || !reservationTime || !numberOfGuests)
+            //     return res.status(400).json({ message: "Missing reservation fields!" });
 
             const table = await getTableData(tableId);
             if (!table)
-                return res.status(404).json({ message: "Table not found!" });
+                return res.status(404).json({ message: "(R) Table not found!", table });
 
             const newReservation = await reservationModel.create({
-                customerId: userId,
-                tableId,
-                reservationDate,
-                reservationTime,
-                numberOfGuests
+                table: tableId,
+                numberOfGuests: numberOfGuests,
+                customer: userId
             });
 
             return res.status(200).json({
