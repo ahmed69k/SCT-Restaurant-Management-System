@@ -1,15 +1,20 @@
 <nav> 
     <ul>
-        <li>
-            <a routerLink="home">Home</a>
-            <div *ngIf="isLoggedIn()">
-            <a routerLink="profile">Profile</a>
-            <a (click)="logout()" routerLink="login">Logout</a>
-            </div>
-            <div *ngIf="!isLoggedIn()">
-                <a routerLink="login">Login</a>
-                <a routerLink="register">Register</a>
-            </div>
-        </li>
+        <li><a routerLink="home" class="navbar-brand">Home</a></li>
+
+        <!-- This spacer will push subsequent items to the right -->
+        <li class="spacer"></li>
+
+        <!-- When Logged In -->
+        <ng-container *ngIf="isLoggedIn()">
+            <li><a routerLink="profile">Profile</a></li>
+            <li><a (click)="logout()" routerLink="login">Logout</a></li>
+        </ng-container>
+
+        <!-- When Logged Out -->
+        <ng-container *ngIf="!isLoggedIn()">
+            <li><a routerLink="login">Login</a></li>
+            <li><a routerLink="register">Register</a></li>
+        </ng-container>
     </ul>
 </nav>
