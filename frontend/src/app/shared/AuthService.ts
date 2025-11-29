@@ -1,10 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+
+export interface User{
+    email:string,
+    password:string,
+    name:string,
+    role:string
+}
 
 @Injectable({providedIn: 'root'})
 export class AuthService{
-    currentUser:any = null
+    currentUser = new BehaviorSubject<User | null>(null);
     loading = true;
 
     constructor(private http: HttpClient){}
@@ -20,12 +27,12 @@ export class AuthService{
             .pipe(
                 tap({
                     next:(user:any)=>{
-                        this.currentUser = user.user
+                        this.currentUser.next(user.user)
                         this.loading = false
                     },
                     error:(_)=>{
-                        this.currentUser = null
-                        this.loading = true
+                        this.currentUser.next(null)
+                        this.loading = false
                     }
                 })
             )
@@ -42,9 +49,10 @@ export class AuthService{
         return this.http.post("http://localhost:3000/api/v1/logout",{},{withCredentials:true})
             .pipe(
                 tap(()=>{
-                    this.currentUser = null
+                    this.currentUser.next(null)
                 })
             )
+
     }
     isLoggedIn():boolean{
         return !!this.currentUser;

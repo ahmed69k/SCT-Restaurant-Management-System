@@ -1,0 +1,15 @@
+<nav> 
+    <ul>
+        <li>
+            <a routerLink="home">Home</a>
+            <div *ngIf="isLoggedIn()">
+            <a routerLink="profile">Profile</a>
+            <a (click)="logout()" routerLink="login">Logout</a>
+            </div>
+            <div *ngIf="!isLoggedIn()">
+                <a routerLink="login">Login</a>
+                <a routerLink="register">Register</a>
+            </div>
+        </li>
+    </ul>
+</nav>

@@ -7,9 +7,11 @@ import { MenuComponent } from './components/menu/menu.component';
 
 export const routes: Routes = [
     {path:"", component: HomeComponent},
+    {path:"home", component: HomeComponent},
     {path:"register", component: RegisterComponent},
     {path: 'login', component: LoginComponent},
     {path: 'profile', component: ProfileComponent },
-    {path: 'menu', component: MenuComponent}
+    {path: 'menu', component: MenuComponent},
+    {path:"**", component: HomeComponent},
     
 ];

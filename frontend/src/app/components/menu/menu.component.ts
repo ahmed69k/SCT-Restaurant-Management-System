@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit {
 
   getMenu(){
     const headers = new HttpHeaders().set('x-secret-code', '1029');
-    this.http.get<any[]>('http://localhost:3002/api/v1/menu/internal', { headers }).subscribe(menuResponse => {
+    this.http.get<any[]>('http://localhost:3002/api/v1/menu/internal/', { headers }).subscribe(menuResponse => {
       this.menu = menuResponse;
     });
   }
