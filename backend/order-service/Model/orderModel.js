@@ -15,11 +15,11 @@ const orderSchema = mongoose.Schema({
         default: 'Pending'
     },
     menuItems: {
-        type: [String],
+        type: [mongoose.Types.ObjectId],
         required: true
     },
     customerId:{
-        type: Number,
+        type: mongoose.Types.ObjectId,
         required:true
     }
 })

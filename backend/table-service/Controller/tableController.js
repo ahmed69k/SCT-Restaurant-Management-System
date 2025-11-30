@@ -4,7 +4,7 @@ const axios = require('axios');
 async function getReservationData(reservationId) {
     try{
         const response = await axios.get(
-            `http://localhost:4004/api/v1/internal/reservations/${reservationId}`,
+            `http://localhost:3004/api/v1/internal/reservations/${reservationId}`,
             {headers: {"x-secret-code": process.env.RESERVATION_SERVICE_SECRET}}
         )
         return response.data.Reservation
@@ -15,6 +15,24 @@ async function getReservationData(reservationId) {
 }
 
 const tableController = {
+
+    createTable: async (req, res)=>{
+        try{
+            const {seatingType} = req.body;
+
+            const newTable = new tableSchema({
+
+                seatingType: seatingType,
+
+            });
+
+            await newTable.save();
+            return res.status(201).json({message: "Table created sucessfully", newTable});
+        }
+        catch(error){
+            return res.status(500).json({message: "Error created table", error});
+        }
+    },
 
     updateTable: async(req, res)=>{
         try{
@@ -34,7 +52,7 @@ const tableController = {
         }
     },
 
-    deletedTable: async(req, res)=> {
+    deleteTable: async(req, res)=> {
 
         try{
             const {tableId} = req.params;
@@ -61,7 +79,7 @@ const tableController = {
     getTableById: async(req,res)=>{
         try{
             const {tableId} = req.params;
-            const table = await tableSchema.findById(tableId).populate('reservation');
+            const table = await tableSchema.findById(tableId);
             
             if(!table){
                 return res.status(404).json({message: "Table not found!"});

@@ -2,15 +2,17 @@ const tableController = require('../Controller/tableController');
 const express = require('express');
 const AuthenticationMiddleware = require('../Middleware/AuthenticationMiddleware');
 const AuthorizationMiddleware = require('../Middleware/AuthorizationMiddleware');
+const serviceAuthMiddleware = require('../Middleware/ServiceAuthMiddleware')
 
 const router = express.Router();
 
-router.post('/tables', AuthenticationMiddleware, tableController.createTable);
-router.put('/tables/:tableId', AuthenticationMiddleware, tableController.updateTable);
-router.delete('/tables/:tableId', AuthenticationMiddleware, tableController.deleteTable);
-router.get('/tables', AuthorizationMiddleware, tableController.getAllTables);
-router.get('/tables/available', tableController.getAvailableTables);
-router.get('/tables/:tableId', tableController.getTableById);
-router.patch('/tables/:tableId/status', AuthenticationMiddleware, tableController.updateTableStatus);
+router.post('/tables', AuthenticationMiddleware, AuthorizationMiddleware(['Admin', 'Staff']), tableController.createTable);
+router.get('/tables', AuthorizationMiddleware, AuthorizationMiddleware(['Admin', 'Staff']), tableController.getAllTables);
+router.put('/tables/:tableId', AuthenticationMiddleware, AuthorizationMiddleware(['Admin', 'Staff']), tableController.updateTable);
+router.delete('/tables/:tableId', AuthenticationMiddleware, AuthorizationMiddleware(['Admin']), tableController.deleteTable);
+router.get('/tables/available', AuthenticationMiddleware, AuthorizationMiddleware(['Admin', 'Staff']), tableController.getAvailableTables);
+router.get('/tables/:tableId', AuthenticationMiddleware, AuthorizationMiddleware(['Admin', 'Staff']), tableController.getTableById);
+router.patch('/tables/:tableId/status', AuthorizationMiddleware(['Admin']), AuthenticationMiddleware, tableController.updateTableStatus);
+router.get('/internal/tables/:tableId', serviceAuthMiddleware,tableController.getTableById)
 
 module.exports = router;

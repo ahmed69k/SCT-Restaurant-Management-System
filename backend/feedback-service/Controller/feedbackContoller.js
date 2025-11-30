@@ -4,8 +4,8 @@ const axios = require('axios')
 async function getUserData(userId){
     try{
         const response = await axios.get(
-            `http://localhost:4001/api/v1/internal/users/${userId}`,
-            {headers: {"x-secret-code": process.env.USER_SERVICE_SECRET}}
+            `http://localhost:3000/api/v1/internal/users/${userId}`,
+            {headers: {"x-secret-code": process.env.SERVICE_SECRET}}
         )
         return response.data.User
     }

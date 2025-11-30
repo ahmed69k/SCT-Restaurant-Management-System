@@ -1,13 +1,20 @@
-require('dotenv').config({path: './.env'})
+require('dotenv').config({path:require('path').resolve(__dirname, '../.env')})
 const express = require('express')
 const mongoose = require('mongoose')
 const userRouter = require('./Router/userRouter.js')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 
 
 const app = express()
-const port = 3005
+app.use(cors({
+    origin: process.env.FRONTEND_LINK,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}))
+
+const port = process.env.USER_PORT
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));

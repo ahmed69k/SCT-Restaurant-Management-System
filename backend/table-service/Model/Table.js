@@ -8,14 +8,10 @@ const mongoose = require('mongoose')
     },
     seatingType:{
         type: String,
-        enum: ["Double","Booth","Couch"]
+        enum: ["Double","Booth","Couch"],
+        required:true
     },
 
-    reservation: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Reservation',
-        required: true
-    },
 
  })
 
