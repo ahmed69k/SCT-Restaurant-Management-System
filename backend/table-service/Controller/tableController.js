@@ -18,19 +18,22 @@ const tableController = {
 
     createTable: async (req, res)=>{
         try{
-            const {seatingType} = req.body;
-
-            const newTable = new tableSchema({
-
-                seatingType: seatingType,
-
-            });
-
-            await newTable.save();
-            return res.status(201).json({message: "Table created sucessfully", newTable});
+            if (Array.isArray(req.body)) {
+                const tables = await tableSchema.insertMany(req.body);
+                return res.status(201).json({message: "Tables created successfully", tables});
+            } 
+            else {
+                const {seatingType} = req.body;
+                const newTable = new tableSchema({
+                    seatingType: seatingType,
+                });
+                await newTable.save();
+                return res.status(201).json({message: "Table created successfully", newTable});
+            }
+            
         }
         catch(error){
-            return res.status(500).json({message: "Error created table", error});
+            return res.status(500).json({message: "Error creating table", error});
         }
     },
 
@@ -67,7 +70,7 @@ const tableController = {
     getAllTables: async(req, res)=> {
         
         try{
-            const tables= await tableSchema.find().populate('reservation');
+            const tables= await tableSchema.find();
             return res.status(200).json({tables})
         }
         catch(error){            
@@ -94,7 +97,7 @@ const tableController = {
 
     getAvailableTables: async(req,res)=>{
         try{
-            const tables = await tableSchema.find({isFree: true}).populate('reservation');
+            const tables = await tableSchema.find({isFree: true});
             return res.status(200).json({tables});
         }
         catch(error){
@@ -111,7 +114,7 @@ const tableController = {
                 tableId,
                 { isFree },
                 { new: true }
-            ).populate('reservation');
+            );
             
             return res.status(200).json({message: "Table status updated successfully!", updatedTable});
         }
