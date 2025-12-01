@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #2c3e50; /* A dark blue-gray */
+    --secondary-color: #3498db; /* A nice blue */
+    --text-color-light: #ecf0f1; /* A light gray for text on dark backgrounds */
+    --background-light: #ffffff;
+    --hover-color: #46a4e6;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-light);
+}
+
+body {
+    margin: 0;
+    /* Add padding to the top to offset the 60px fixed navbar */
+    padding-top: 60px; 
+}

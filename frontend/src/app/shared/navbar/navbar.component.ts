@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout().subscribe({
       next: ()=>{
-        this.toast.show("Logged Out!")
+        this.toast.success("Logged Out!")
       }
     })
   }

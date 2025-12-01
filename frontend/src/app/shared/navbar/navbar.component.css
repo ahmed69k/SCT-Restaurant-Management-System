@@ -1,0 +1,52 @@
+/* Main navigation bar container */
+nav {
+    position: fixed; /* Fix the navbar to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    box-sizing: border-box; /* Include padding in the element's total width */
+
+    background-color: var(--primary-color);
+    padding: 0 2rem; /* Add some padding on the sides */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    height: 60px; /* Give the navbar a fixed height */
+}
+
+/* The list that holds all navigation items */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Vertically center items */
+    height: 100%;
+}
+
+/* The flexible spacer that pushes items apart */
+.spacer {
+    flex: 1 1 auto; /* This makes the spacer grow and take up all available space */
+}
+
+/* Styling for each navigation link */
+li a {
+    display: block;
+    color: var(--text-color-light);
+    text-decoration: none;
+    padding: 0 1rem;
+    line-height: 60px; /* Match the navbar height to center text */
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover effect for links */
+li a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Special styling for the main brand/home link */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
