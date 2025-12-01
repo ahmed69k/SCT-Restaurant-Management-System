@@ -3,7 +3,7 @@ import swal, {SweetAlertIcon} from "sweetalert2"
 
 @Injectable({providedIn: 'root'})
 export class ToastService{
-    show(message:string,icon:SweetAlertIcon='success'){
+    success(message:string,icon:SweetAlertIcon='success'){
         swal.fire({
             toast:true,
             position: 'top-end',
@@ -11,7 +11,18 @@ export class ToastService{
             title:message,
             showConfirmButton: false,
             timer:3000,
-            timerProgressBar: true
+            timerProgressBar: true,
         })
     }
+    error(message:string,icon:SweetAlertIcon='error'){
+        swal.fire({
+            toast:true,
+            position: 'top-end',
+            icon, 
+            title:message,
+            showConfirmButton: false, 
+            timer:3000,
+            timerProgressBar: true,
+        })
+    }    
 }

@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { ToastService } from '../../shared/ToastService';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/AuthService';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule], // HttpClientModule is not needed here since HttpClient is provided globally
+  imports: [FormsModule, RouterLink], // HttpClientModule is not needed here since HttpClient is provided globally
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -27,12 +27,12 @@ export class LoginComponent {
       .subscribe({
         next: (res)=>{
           console.log("Login successful!",res)
-          this.toast.show("Login Successful!")
+          this.toast.success("Login Successful!")
           this.router.navigate(['/profile'])
         },
         error: (res)=>{
           console.log("Error logging in!")
-          this.toast.show("Login Failed!")
+          this.toast.error("Login Failed!")
         }
       })
   }
