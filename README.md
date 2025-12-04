@@ -1,6 +1,6 @@
 <div > 
     <h1 style="text-align: center">Restaurant Management System</h1>
-    <h3 style="text-align: center"> A simple Restaurant Management System made in [lesa hanshoof el backend] and [lesa hanshoof el frontend bardo]</h3>
+    <h3 style="text-align: center"> A simple Restaurant Management System built in Node.js and Angular</h3>
     <h3> Team Members:</h3>
     <ul>
         <li>
