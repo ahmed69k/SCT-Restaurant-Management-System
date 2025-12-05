@@ -4,11 +4,10 @@ const mongoose = require('mongoose')
     isFree:{
         type:Boolean,
         default: true,
-        required: true,
     },
     seatingType:{
         type: String,
-        enum: ["Double","Booth","Couch"],
+        enum: ["Double","Booth","Couch","Table"],
         required:true
     },
 

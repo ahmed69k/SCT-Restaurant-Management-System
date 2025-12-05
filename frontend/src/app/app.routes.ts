@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { TablesComponent } from './components/tables/tables.component';
 
 export const routes: Routes = [
     {path:"", component: HomeComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: 'profile', component: ProfileComponent },
     {path: 'menu', component: MenuComponent},
     {path:'reservations', component:ReservationsComponent},
+    {path: "tables",component:TablesComponent},
     {path:"**", component: HomeComponent},
     
 ];

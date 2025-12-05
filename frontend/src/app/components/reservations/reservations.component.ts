@@ -19,7 +19,7 @@ export class ReservationsComponent {
     const reservation = {
       date: new Date(this.date),
       time: this.time,
-      numOfGuests: this.numOfGuests
+      numberOfGuests: this.numOfGuests
     }
     console.log(reservation)
     this.http.post('http://localhost:3004/api/v1/reservations', reservation, {withCredentials:true}).subscribe({
@@ -28,7 +28,7 @@ export class ReservationsComponent {
         this.toast.success("Reservation created!")
       },
       error: (response) =>{
-        console.log("Error creating reservation!")
+        console.log("Error creating reservation!", response)
         this.toast.error("Error creating reservation!")
       }
     })

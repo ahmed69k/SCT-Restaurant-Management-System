@@ -3,10 +3,16 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const tableRouter = require('./Router/tableRouter')
+const cors = require('cors')
 
 
 
 const app = express()
+app.use(cors({
+    origin: process.env.FRONTEND_LINK,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}))
 const port = process.env.TABLE_PORT
 app.use(cookieParser())
 app.use(express.json())
