@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { ToastService } from '../../shared/ToastService';
+import { AuthService } from '../../shared/AuthService';
 
 @Component({
   selector: 'app-reservations',
@@ -13,14 +14,15 @@ export class ReservationsComponent {
   date:string = ''
   time:string = ''
   numOfGuests:number = 0
-  constructor(private http:HttpClient, private toast:ToastService){}
+  constructor(private http:HttpClient, private toast:ToastService, private authService:AuthService){}
   submitForm(){
     const reservation = {
       date: new Date(this.date),
       time: this.time,
       numOfGuests: this.numOfGuests
     }
-    this.http.post('http://localhost:3004/api/v1/reservations',reservation).subscribe({
+    console.log(reservation)
+    this.http.post('http://localhost:3004/api/v1/reservations', reservation, {withCredentials:true}).subscribe({
       next: (res)=>{
         console.log("Reservation created!")
         this.toast.success("Reservation created!")

@@ -47,17 +47,17 @@ const reservationController = {
             if (!userId)
                 return res.status(403).json({ message: "User not logged in!" });
 
-            const { tableId, date, time, numberOfGuests } = req.body;
+            const {date, time, numberOfGuests } = req.body;
 
-            if (!tableId || !date || !time || !numberOfGuests)
+            if (!date || !time || !numberOfGuests)
                 return res.status(400).json({ message: "Missing reservation fields!" });
 
-            const table = await getTableData(tableId);
-            if (!table)
-                return res.status(404).json({ message: "(R) Table not found!", table });
+            // const table = await getTableData(tableId);
+            // if (!table)
+            //     return res.status(404).json({ message: "(R) Table not found!", table });
 
             const newReservation = await reservationModel.create({
-                table: tableId,
+                // table: tableId,
                 numberOfGuests: numberOfGuests,
                 customer: userId,
                 date: date,
