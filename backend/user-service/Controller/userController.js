@@ -37,7 +37,7 @@ const userController = {
             }
             const passwordCorrect = await bcrypt.compare(password, foundUser.password)
             if(!passwordCorrect){
-                return res.status(500).json({message: "Pasword is incorrect!"})
+                return res.status(409).json({message: "Pasword is incorrect!"})
             }
             console.log(process.env.SECRET_KEY)
             const token = jwt.sign(
@@ -58,7 +58,7 @@ const userController = {
             return res.cookie('token',token,cookieOptions).status(200).json({message: "User logged in successfully!",token: token})
         }
         catch(e){
-            return res.status(500).json({message:"Error logging in!", e})
+            return res.status(500).json({message:"Error logging in!",e})
         }
     },
     logout: async(req,res) => {

@@ -16,6 +16,7 @@ export class RegisterComponent {
   email:string = ''
   password: string = ''
   role:string = ''
+  error:string = ''
 
   constructor(private http: HttpClient, private toast:ToastService){}
 
@@ -35,7 +36,13 @@ export class RegisterComponent {
         },
         error: (response)=>{
           console.log("Error registering!",response)
-          this.toast.error("Register Failed!")
+          if(response.status = 409){
+            this.toast.error('Email already in use!')
+            this.error = "Email already in use!"
+          }
+          else{
+            this.toast.error("Error registering!")
+          }
         }
       })
 

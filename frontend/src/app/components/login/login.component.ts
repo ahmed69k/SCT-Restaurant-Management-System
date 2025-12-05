@@ -15,6 +15,7 @@ import { Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   email:string = ''
   password:string = ''
+  error:string = ''
   constructor(private http: HttpClient, private toast: ToastService, private authService:AuthService, private router:Router){}
 
   async handleLogin(){
@@ -32,7 +33,14 @@ export class LoginComponent {
         },
         error: (res)=>{
           console.log("Error logging in!")
-          this.toast.error("Login Failed!")
+          if(res.status = 409){
+            // this.toast.error("Email or password incorrect!")
+            this.error = "Email or password incorrect!"
+          }
+          else{
+            this.toast.error("Error logging in!")
+          }
+          
         }
       })
   }
