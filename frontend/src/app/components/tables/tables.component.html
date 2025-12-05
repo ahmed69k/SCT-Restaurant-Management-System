@@ -26,9 +26,10 @@
   <ng-template #noTables>
     <p>No tables found.</p>
   </ng-template>
-  
+  <button (click)="toggleForm()">Add Table</button>
 </div>
 <div *ngIf="!isFormHidden">
+    <button (click)="toggleForm()">Back</button>
     <form (ngSubmit)="createTable()">
         <select name="seatingType" id="" [(ngModel)]="seatingType">
             <option value="" disabled>Select a seating type</option>
@@ -42,4 +43,4 @@
 </div>
 
 
-<button (click)="toggleForm()">Add Table</button>
+
