@@ -1,1 +1,69 @@
-<p>home works!</p>
+<header class="hero-section">
+  <div class="hero-content">
+    <h1>[Your Restaurant Name]</h1>
+    <p class="tagline">Experience Culinary Excellence in Every Bite</p>
+    <div class="hero-actions">
+      <a routerLink="/menu" class="btn btn-primary">View Our Menu</a>
+      <a routerLink="/reservations" class="btn btn-secondary">Book a Table</a>
+    </div>
+  </div>
+</header>
+
+<section class="about-section">
+  <div class="container">
+    <div class="about-content">
+      <h2>Our Story</h2>
+      <p>
+        Founded in [Year], [Your Restaurant Name] was born from a passion for [Cuisine Type] and a desire to create a memorable dining experience. We believe in sourcing the freshest local ingredients and crafting dishes that tell a story.
+      </p>
+      <p>
+        Our chef, [Chef's Name], brings years of expertise and a creative touch to every plate, ensuring a delightful journey for your taste buds.
+      </p>
+      <a routerLink="/about" class="btn btn-tertiary">Learn More</a>
+    </div>
+    <div class="about-image">
+      <img src="/images/resto-busy.jpg" alt="Restaurant Interior">
+    </div>
+  </div>
+</section>
+
+<section class="menu-highlights-section">
+  <div class="container">
+    <h2>Signature Dishes</h2>
+    <div class="dish-grid">
+      <!-- Loop over the first 3 items of the menu array -->
+      <div class="dish-card" *ngFor="let item of menu | slice:0:3">
+        <!-- <img [src]="item.image" [alt]="item.name"> -->
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+    <a routerLink="/menu" class="btn btn-primary">Explore Full Menu</a>
+  </div>
+</section>
+
+<section class="reservations-section">
+  <div class="container">
+    <h2>Make a Reservation</h2>
+    <p>Planning a special occasion or just a delightful evening out? Book your table with us!</p>
+    <!-- This could be an embedded widget or a link to a dedicated page -->
+    <a routerLink="/reservations" class="btn btn-primary">Book Now</a>
+    <p class="contact-info">Or email us at: <a href="mailto:ahmedassem04@gmail.com"> ahmedassem04@gmail.com</a></p>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="container">
+    <h2>What Our Guests Say</h2>
+    <div class="testimonial-carousel">
+      <div class="testimonial-card">
+        <p>"Absolutely incredible food and impeccable service! A must-visit."</p>
+        <span>- Happy Customer, Google Reviews</span>
+      </div>
+      <!-- More testimonials can be added here -->
+    </div>
+  </div>
+</section>
+
+<!-- A footer component would typically be included here, often outside the home component -->
+<!-- <app-footer></app-footer> -->

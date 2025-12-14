@@ -14,7 +14,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }))
 
-const port = process.env.USER_PORT
+const port = process.env.USER_PORT || 3000
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));

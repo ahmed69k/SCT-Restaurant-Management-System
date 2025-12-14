@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastService } from '../../shared/ToastService';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule], // HttpClientModule is not needed here since HttpClient is provided globally
+  imports: [FormsModule, RouterLink], // HttpClientModule is not needed here since HttpClient is provided globally
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -15,6 +16,7 @@ export class RegisterComponent {
   email:string = ''
   password: string = ''
   role:string = ''
+  error:string = ''
 
   constructor(private http: HttpClient, private toast:ToastService){}
 
@@ -30,11 +32,17 @@ export class RegisterComponent {
       .subscribe({
         next:(response) =>{
           console.log("Register Success", response)
-          this.toast.show("Registration Sucessful!")
+          this.toast.success("Registration Sucessful!")
         },
         error: (response)=>{
           console.log("Error registering!",response)
-          this.toast.show("Register Failed!")
+          if(response.status = 409){
+            this.toast.error('Email already in use!')
+            this.error = "Email already in use!"
+          }
+          else{
+            this.toast.error("Error registering!")
+          }
         }
       })
 

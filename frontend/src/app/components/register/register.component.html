@@ -1,15 +1,33 @@
-<div class="container">
-    <h1>Register</h1>
-    <form (ngSubmit) = "handleRegister()">
-        <input type="name" [(ngModel)] = "name" name="name" placeholder="Enter your name...">
-        <input type="email" [(ngModel)] = "email" name="email" placeholder="Enter your email...">
-        <input type="password" [(ngModel)] = "password" name="password" placeholder="Enter your password...">
-        <select name="role"  [(ngModel)] = "role">
-            <option value="" disabled>Select role...</option>
-            <option value="User" >User</option>
-            <option value="Staff">Staff</option>
-            <option value="Admin">Admin</option>
+<div class="form-container">
+  <div class="form-card">
+    <h2>Create an Account</h2>
+    <p class="form-subtitle">Join us! It only takes a minute.</p>
+
+    <form (ngSubmit)="handleRegister()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" name="role" [(ngModel)]="role" required>
+          <option value="" disabled>Select a role...</option>
+          <option value="User">User</option>
+          <option value="Staff">Staff</option>
+          <option value="Admin">Admin</option>
         </select>
-        <button type="submit"> Submit</button>
+      </div>
+      <p style="color: red;">{{error}}</p>
+      <button type="submit" class="btn-submit">Register</button>
     </form>
+    <p class="form-footer">Already have an account? <a routerLink="/login">Sign In</a></p>
+  </div>
 </div>

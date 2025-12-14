@@ -1,4 +1,4 @@
-const MenuItem = require('../Model/menuItemModel.js').default;
+const MenuItem = require('../Model/menuItemModel.js');
 
 // GET /api/menu → public: get all available items
 const getMenu = async (req, res) => {
@@ -8,7 +8,7 @@ const getMenu = async (req, res) => {
       .sort({ category: 1, name: 1 });
     res.json(items);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error while getting menu!' });
   }
 };
 
@@ -18,7 +18,7 @@ const getAllItems = async (req, res) => {
     const items = await MenuItem.find().sort({ category: 1 });
     res.json(items);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error while getting all menu items!' });
   }
 };
 
@@ -33,7 +33,7 @@ const createItem = async (req, res) => {
     await item.save();
     res.status(201).json(item);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error while creating menu item!' });
   }
 };
 
@@ -47,7 +47,7 @@ const updateItem = async (req, res) => {
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.json(item);
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error while updating menu item!' });
   }
 };
 
@@ -58,7 +58,7 @@ const deleteItem = async (req, res) => {
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.json({ message: 'Item deleted successfully' });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error while deleting menu item!' });
   }
 };
 

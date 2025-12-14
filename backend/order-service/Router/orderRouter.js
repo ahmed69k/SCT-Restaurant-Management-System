@@ -4,7 +4,7 @@ const AuthorizationMiddleware = require('../Middleware/AuthorizationMiddleware')
 const orderController = require('../Controller/orderController')
 const router = express.Router()
 
-router.post('/',AuthenticationMiddleware, AuthorizationMiddleware(['Customer']),orderController.placeOrder)
-router.delete('/:id',AuthenticationMiddleware, AuthorizationMiddleware(['Customer']), orderController.cancelOrder)
+router.post('/',AuthenticationMiddleware, AuthorizationMiddleware(['User']),orderController.placeOrder)
+router.delete('/:id',AuthenticationMiddleware, AuthorizationMiddleware(['User']), orderController.cancelOrder)
 
 module.exports = router;
