@@ -7,7 +7,9 @@
 
         <!-- When Logged In -->
         <ng-container *ngIf="isLoggedIn()">
-            <li><a routerLink="tables">Tables</a></li>
+            <li><a routerLink="menu">Menu</a></li>
+            <li><a routerLink="reservations">Reservations</a></li>
+            <li *ngIf="user?.role ==='Admin'"><a routerLink="tables">Tables</a></li>
             <li><a routerLink="profile">Profile</a></li>
             <li><a (click)="logout()" routerLink="login">Logout</a></li>
         </ng-container>

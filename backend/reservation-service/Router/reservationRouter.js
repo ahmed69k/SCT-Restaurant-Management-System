@@ -15,7 +15,7 @@ router.post(
 router.get(
     "/",
     authenticationMiddleware,
-    authorizationMiddleware(["Admin"]),
+    authorizationMiddleware(["Admin","Staff"]),
     reservationController.getAllReservations
 );
 
@@ -31,6 +31,7 @@ router.delete(
     reservationController.cancelReservation
 );
 router.get('/:id', authenticationMiddleware, authorizationMiddleware(["Staff", "Admin", "User"]), reservationController.getReservationById)
+router.put('/:id',authenticationMiddleware,authorizationMiddleware(["Admin","Staff"]),reservationController.updateStatus)
 router.get('internal/:id', serviceAuthMiddleware,reservationController.getReservationById)
 
 module.exports = router;

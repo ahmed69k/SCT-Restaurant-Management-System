@@ -10,19 +10,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit, OnDestroy {
-  currentUser: User | null = null;
-  private userSubscription: Subscription | undefined;
+export class ProfileComponent{
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.userSubscription = this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+  get currentUser(){
+    return this.authService.currentUser;
   }
 
-  ngOnDestroy(): void {
-    this.userSubscription?.unsubscribe();
+  get loading(){
+    return this.authService.loading
   }
+
 }

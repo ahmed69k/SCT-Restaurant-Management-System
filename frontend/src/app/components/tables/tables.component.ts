@@ -4,6 +4,7 @@ import { AuthService } from '../../shared/AuthService';
 import { ToastService } from '../../shared/ToastService';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 export enum SeatingType {
@@ -11,6 +12,11 @@ export enum SeatingType {
   Couch,
   Table,
   Double
+}
+
+export interface Table{
+  isFree:boolean,
+  seatingType:SeatingType
 }
 
 @Component({
@@ -24,12 +30,18 @@ export class TablesComponent {
   isFree:boolean | null = null;
   seatingType:SeatingType | null = null;
   isFormHidden:boolean = true;
-  constructor(private http: HttpClient, private auth:AuthService, private toast:ToastService){}
+  constructor(private http: HttpClient, private auth:AuthService, private toast:ToastService, private router:Router){}
   ngOnInit():void{
     this.fetchTables()
+    if(this.currentUser?.role !=="Admin"){
+      this.router.navigate(['/not-found'])
+    }
+  }
+  get currentUser(){
+    return this.auth.currentUser
   }
   fetchTables(){
-    this.http.get<{tables:any[]}>('http://localhost:3005/api/v1/tables',{withCredentials: true}).subscribe(tableResponse =>{
+    this.http.get<{tables:Table[]}>('http://localhost:3005/api/v1/tables',{withCredentials: true}).subscribe(tableResponse =>{
       this.tables = tableResponse.tables
     })
   }

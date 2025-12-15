@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export interface User {
   email: string;
@@ -11,7 +11,7 @@ export interface User {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  currentUser = new BehaviorSubject<User | null>(null);
+  currentUser:User | null = null
   loading = true;
   token: string = ''; // if backend sets token in response for any reason
 
@@ -21,18 +21,18 @@ export class AuthService {
 
   // Fetch current user from backend
   getCurrentUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/profile`, { withCredentials: true });
+    return this.http.get<{message:string, user:User}>(`${this.apiUrl}/profile`, { withCredentials: true });
   }
 
   fetchCurrentUser(): Observable<any> {
     return this.getCurrentUser().pipe(
       tap({
         next: (res: any) => {
-          this.currentUser.next(res.user || null);
+          this.currentUser = res.user
           this.loading = false;
         },
         error: (_) => {
-          this.currentUser.next(null);
+          this.currentUser = null
           this.loading = false;
         }
       })
@@ -56,7 +56,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
-          this.currentUser.next(null);
+          this.currentUser = null
           this.token = '';
         })
       );
@@ -64,6 +64,6 @@ export class AuthService {
 
   // Check login status
   isLoggedIn(): boolean {
-    return !!this.currentUser.value; // check current BehaviorSubject value
+    return !!this.currentUser 
   }
 }

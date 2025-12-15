@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { TablesComponent } from './components/tables/tables.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 
 export const routes: Routes = [
     {path:"", component: HomeComponent},
@@ -16,6 +17,7 @@ export const routes: Routes = [
     {path: 'menu', component: MenuComponent},
     {path:'reservations', component:ReservationsComponent},
     {path: "tables",component:TablesComponent},
+    {path: 'not-found',component:NotfoundComponent},
     {path:"**", component: HomeComponent},
     
 ];

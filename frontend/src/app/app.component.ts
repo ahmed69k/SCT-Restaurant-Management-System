@@ -20,9 +20,8 @@ export class AppComponent implements OnInit {
   constructor(private authService:AuthService){}
 
   ngOnInit(): void {
-    this.authService.fetchCurrentUser().subscribe(user =>{
-      console.log("User updated from the AppComponent:",user)
+    this.authService.fetchCurrentUser().subscribe(res =>{
+      console.log("User updated from the AppComponent:",res.user)
     })
-    this.authService.fetchCurrentUser().subscribe()
   }
 }
