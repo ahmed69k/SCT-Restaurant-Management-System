@@ -3,14 +3,60 @@
 </header>
 
 <section class="menu-section">
+      <div *ngIf="isAdminOrStaff" class="admin-actions">
+      <button class="btn btn-primary" (click)="openEdit(null)">Add Menu Item</button>
+    </div>
   <div class="menu-container">
-    <div class="menu-card" *ngFor="let item of menu">
+
+    <!-- ADMIN / STAFF: Add Item Button -->
+
+
+    <div class="menu-card" *ngFor="let item of menu" (click)="!isAdminOrStaff ? openModal(item) : null">
       <img [src]="item.image" [alt]="item.name" class="menu-item-image" />
       <div class="menu-item-content">
         <h3>{{ item.name }}</h3>
         <p class="description">{{ item.description }}</p>
         <p class="price">{{ item.price | currency }}</p>
+
+        <!-- Admin Buttons -->
+        <div *ngIf="isAdminOrStaff" class="admin-buttons">
+          <button class="btn btn-secondary" (click)="openEdit(item)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteItem(item)">Delete</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal" *ngIf="selectedItem || isEditing">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+
+    <!-- User view -->
+    <ng-container *ngIf="selectedItem && !isEditing">
+      <h2>{{ selectedItem.name }}</h2>
+      <img *ngIf="selectedItem.image" [src]="selectedItem.image" class="modal-image" />
+      <p>{{ selectedItem.description }}</p>
+      <p>Price: {{ selectedItem.price | currency }}</p>
+      <p>Category: {{ selectedItem.category }}</p>
+      <p>Status: {{ selectedItem.isAvailable ? 'Available' : 'Unavailable' }}</p>
+    </ng-container>
+
+    <!-- Admin/Staff Edit Form -->
+    <ng-container *ngIf="isEditing">
+      <h2>{{ editingItem ? 'Edit' : 'Add' }} Menu Item</h2>
+      <form (ngSubmit)="submitForm()">
+        <input type="text" placeholder="Name" [(ngModel)]="name" name="name" required />
+        <input type="text" placeholder="Description" [(ngModel)]="description" name="description" required />
+        <input type="number" placeholder="Price" [(ngModel)]="price" name="price" required />
+        <input type="text" placeholder="Category" [(ngModel)]="category" name="category" required />
+        <input type="text" placeholder="Image URL" [(ngModel)]="image" name="image" />
+        <label>
+          <input type="checkbox" [(ngModel)]="isAvailable" name="isAvailable" /> Available
+        </label>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </ng-container>
+  </div>
+</div>
