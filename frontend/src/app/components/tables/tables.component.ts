@@ -54,6 +54,7 @@ export class TablesComponent {
         console.log("Table created successfully!")
         this.toast.success("Table created successfully!")
         this.fetchTables()
+        this.toggleForm()
       },
       error: (res) =>{
         console.log("Error creating table!",res)
@@ -65,4 +66,5 @@ export class TablesComponent {
   toggleForm(){
     this.isFormHidden = !this.isFormHidden
   }
+  
 }

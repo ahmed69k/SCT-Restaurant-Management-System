@@ -1,0 +1,42 @@
+<ng-container *ngIf="!loading">
+
+  <section class="feedback-section">
+    <div class="feedback-container">
+      <h2>All Feedbacks</h2>
+
+      <p *ngIf="feedbacks.length === 0">
+        No feedbacks submitted yet.
+      </p>
+
+      <div *ngIf="feedbacks.length > 0" class="table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Reservation</th>
+              <th>Rating</th>
+              <th>Comment</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let f of feedbacks">
+              <td>{{ f.userId }}</td>
+              <td>{{ f.Reservation }}</td>
+              <td>{{ f.rating }} ⭐</td>
+              <td>{{ f.comment || '—' }}</td>
+              <td>{{ f.date | date:'dd-MM-yyyy HH:mm' }}</td>
+              <td>
+                <button class="btn delete action-btn" (click)="deleteFeedback(f._id)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</ng-container>

@@ -1,0 +1,60 @@
+<div *ngIf="loading" class="loading">Loading users...</div>
+
+<div *ngIf="!loading" class="users-container">
+
+  <h2>Users Management</h2>
+
+  <table *ngIf="users.length > 0; else noUsers" class="admin-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Joined</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.timestamp | date:'medium' }}</td>
+        <td class="actions">
+          <button class="btn primary" (click)="openEditForm(user)">Edit</button>
+          <button class="btn delete" (click)="deleteUser(user._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noUsers>
+    <p>No users found.</p>
+  </ng-template>
+
+</div>
+
+<!-- Edit Form Modal -->
+<div class="modal-backdrop" *ngIf="showEditForm">
+  <div class="modal">
+    <h2>Edit User</h2>
+
+    <label>Name</label>
+    <input type="text" [(ngModel)]="editName" name="editName" />
+
+    <label>Email</label>
+    <input type="email" [(ngModel)]="editEmail" name="editEmail" />
+
+    <label>Role</label>
+    <select [(ngModel)]="editRole" name="editRole">
+      <option value="User">User</option>
+      <option value="Staff">Staff</option>
+      <option value="Admin">Admin</option>
+    </select>
+
+    <div class="modal-actions">
+      <button class="btn delete" (click)="closeEditForm()">Cancel</button>
+      <button class="btn primary" (click)="submitEditForm()">Save</button>
+    </div>
+  </div>
+</div>
