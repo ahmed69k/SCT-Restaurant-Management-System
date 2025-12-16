@@ -14,9 +14,12 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+
     "start": "nodemon app.js",
-    "startall": "concurrently \"npm --prefix backend/user-service start\" \"npm --prefix backend/feedback-service start\" \"npm --prefix backend/order-service start\" \"npm --prefix backend/reservation-service start\" \"npm --prefix backend/table-service start\" \"npm --prefix backend/menuItem-service start\""
+    "startall": "concurrently \"npm --prefix backend/user-service start\" \"npm --prefix backend/feedback-service start\" \"npm --prefix backend/order-service start\" \"npm --prefix backend/reservation-service start\" \"npm --prefix backend/table-service start\" \"npm --prefix backend/menuItem-service start\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -31,6 +34,7 @@
     "pm2": "^6.0.13"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "jest": "^30.2.0"
   }
 }
