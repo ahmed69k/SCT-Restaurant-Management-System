@@ -153,6 +153,21 @@ const reservationController = {
                 error: e.message
             });
         }
+    },
+    updateStatus:async(req,res)=>{
+        try{
+            const {status} = req.body
+            const reservation = await reservationModel.findById(req.params.id);
+            if(!reservation) return res.status(404).json({message:"Reservation not found!"})
+            const updated = await reservationModel.findByIdAndUpdate(req.params.id,{status},{new:true})
+            return res.status(200).json({message:"Reservation updated successfully!", reservation:updated})
+        } 
+        catch (e) {
+            return res.status(500).json({
+                message: "Error updating reservation!",
+                error: e.message
+            });
+        }
     }
 };
 

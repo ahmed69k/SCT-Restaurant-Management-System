@@ -13,9 +13,9 @@ router.get('/', menuItemController.getMenu);
 router.get('/all', menuItemController.getAllItems);
 
 // Admin-only routes
-router.post('/', authenticationMiddleware, authorizationMiddleware(['Admin']), menuItemController.createItem);
-router.put('/:id', authenticationMiddleware,authorizationMiddleware(['Admin']), menuItemController.updateItem);
-router.delete('/:id', authenticationMiddleware,authorizationMiddleware(['Admin']), menuItemController.deleteItem);
+router.post('/', authenticationMiddleware, authorizationMiddleware(['Admin',"Staff"]), menuItemController.createItem);
+router.put('/:id', authenticationMiddleware,authorizationMiddleware(['Admin',"Staff"]), menuItemController.updateItem);
+router.delete('/:id', authenticationMiddleware,authorizationMiddleware(['Admin',"Staff"]), menuItemController.deleteItem);
 router.get('/internal/', serviceAuthMiddleware, menuItemController.getMenu)
 
 

@@ -1,46 +1,42 @@
-<!-- tables.component.html -->
 <div class="tables-container" *ngIf="isFormHidden">
-  <h2>Tables List</h2>
+  <h2 class="page-title">Tables List</h2>
 
-  <table *ngIf="tables.length > 0; else noTables" border="1" cellpadding="8">
-    <thead>
-      <tr>
-        <th>isFree</th>
-        <th>Type</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let table of tables">
-        <td>{{ table.isFree }}</td>
-        <td>{{ table.seatingType }}</td>
-        <td>
-          <!-- Example action buttons -->
-          <button>View</button>
-          <button>Edit</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div *ngIf="tables.length > 0; else noTables" class="tables-grid">
+    <div class="table-card" *ngFor="let table of tables">
+      <div class="table-type">{{ table.seatingType }}</div>
+      <div class="table-icon" [ngClass]="table.isFree ? 'free' : 'occupied'">
+        <i class="material-icons">
+          {{ table.seatingType === 'Couch' || table.seatingType === 'Booth' ? 'weekend' : 'table_chart' }}
+        </i>
+      </div>
+      <div class="table-actions">
+        <button class="btn view-btn">View</button>
+        <button class="btn edit-btn">Edit</button>
+      </div>
+    </div>
+  </div>
 
   <ng-template #noTables>
-    <p>No tables found.</p>
+    <p class="empty-state">No tables found.</p>
   </ng-template>
-  <button (click)="toggleForm()">Add Table</button>
-</div>
-<div *ngIf="!isFormHidden">
-    <button (click)="toggleForm()">Back</button>
-    <form (ngSubmit)="createTable()">
-        <select name="seatingType" id="" [(ngModel)]="seatingType">
-            <option value="" disabled>Select a seating type</option>
-            <option value="Booth"> Booth </option>
-            <option value="Table"> Table </option>
-            <option value="Couch"> Couch </option>
-            <option value="Double"> Double </option>
-        </select>
-        <button type="submit" (click)="toggleForm()">Submit </button>
-    </form>
+
+  <button class="btn add-btn" (click)="toggleForm()">Add Table</button>
 </div>
 
+<div *ngIf="!isFormHidden" class="table-form-container">
+  <button class="btn back-btn" (click)="toggleForm()">Back</button>
 
+  <form (ngSubmit)="createTable()" class="table-form">
+    <h2>Add New Table</h2>
+    <label for="seatingType">Select a seating type</label>
+    <select name="seatingType" id="seatingType" [(ngModel)]="seatingType" required>
+      <option value="" disabled>Select a seating type</option>
+      <option value="Booth">Booth</option>
+      <option value="Table">Table</option>
+      <option value="Couch">Couch</option>
+      <option value="Double">Double</option>
+    </select>
 
+    <button type="submit" class="btn submit-btn">Submit</button>
+  </form>
+</div>

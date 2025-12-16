@@ -3,12 +3,18 @@ const express = require('express')
 const mongoose = require('mongoose')
 const feedbackRouter = require('./Router/feedbackRouter.js')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 
 
 const app = express()
 const port = process.env.FEEDBACK_PORT;
 app.use(cookieParser())
+app.use(cors({
+    origin: process.env.FRONTEND_LINK,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 

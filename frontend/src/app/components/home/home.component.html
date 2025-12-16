@@ -1,6 +1,6 @@
 <header class="hero-section">
   <div class="hero-content">
-    <h1>[Your Restaurant Name]</h1>
+    <h1>The Golden Plate</h1>
     <p class="tagline">Experience Culinary Excellence in Every Bite</p>
     <div class="hero-actions">
       <a routerLink="/menu" class="btn btn-primary">View Our Menu</a>
@@ -14,10 +14,10 @@
     <div class="about-content">
       <h2>Our Story</h2>
       <p>
-        Founded in [Year], [Your Restaurant Name] was born from a passion for [Cuisine Type] and a desire to create a memorable dining experience. We believe in sourcing the freshest local ingredients and crafting dishes that tell a story.
+        Founded in 2004, The Golden Plate was born from a passion for fine dining and a desire to create a memorable dining experience. We believe in sourcing the freshest local ingredients and crafting dishes that tell a story.
       </p>
       <p>
-        Our chef, [Chef's Name], brings years of expertise and a creative touch to every plate, ensuring a delightful journey for your taste buds.
+        Our chef, Ahmed Assem, brings years of expertise and a creative touch to every plate, ensuring a delightful journey for your taste buds.
       </p>
       <a routerLink="/about" class="btn btn-tertiary">Learn More</a>
     </div>
@@ -33,7 +33,7 @@
     <div class="dish-grid">
       <!-- Loop over the first 3 items of the menu array -->
       <div class="dish-card" *ngFor="let item of menu | slice:0:3">
-        <!-- <img [src]="item.image" [alt]="item.name"> -->
+        <img [src]="item.image" [alt]="item.name">
         <h3>{{ item.name }}</h3>
         <p>{{ item.description }}</p>
       </div>

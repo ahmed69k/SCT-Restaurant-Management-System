@@ -17,10 +17,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router, private toast:ToastService) {}
 
+  get user(){
+    return this.authService.currentUser;
+  }
+
   ngOnInit(): void {
-    this.userSubscription = this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.currentUser = this.user;
   }
 
   ngOnDestroy(): void {
@@ -28,7 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   isLoggedIn(): boolean {
-    return this.authService.currentUser.value!==null
+    return this.authService.isLoggedIn()
   }
 
   logout() {

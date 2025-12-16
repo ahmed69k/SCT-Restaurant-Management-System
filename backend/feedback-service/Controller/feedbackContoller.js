@@ -18,14 +18,15 @@ const feedbackController = {
     submitFeedback: async(req,res)=>{
         try{
             const user = await getUserData(req.user.id)
-            const {message, rating} = req.body;
+            const {comment, rating, reservationId} = req.body;
             if(!user){
                 return res.status(404).json({message: "User not found!"})
             }
             const newFeedback = new feedbackSchema({
                 userId: user._id,
-                description: message,
-                rating: rating
+                comment: comment,
+                rating: rating,
+                Reservation: reservationId,
             });
             await newFeedback.save();
             return res.status(200).json({message: "Feedback submitted successfully!", newFeedback});

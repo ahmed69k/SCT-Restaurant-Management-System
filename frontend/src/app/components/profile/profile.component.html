@@ -1,21 +1,21 @@
 <div class="profile-container">
   <!-- Only show the card if the user data is available -->
-  <div *ngIf="currentUser; else loading" class="profile-card">
+  <div *ngIf="!loading" class="profile-card">
     <div class="profile-header">
       <div class="avatar">
-        <span>{{ currentUser.name.charAt(0) }}</span>
+        <span>{{ currentUser?.name?.charAt(0) }}</span>
       </div>
-      <h2>{{ currentUser.name }}</h2>
-      <p class="role-badge" [ngClass]="currentUser.role.toLowerCase()">{{ currentUser.role }}</p>
+      <h2>{{ currentUser?.name }}</h2>
+      <p class="role-badge" [ngClass]="this.currentUser?.role?.toLowerCase()">{{ currentUser?.role }}</p>
     </div>
     <div class="profile-details">
       <h3>Profile Details</h3>
       <div class="detail-item">
         <span class="detail-label">Email: </span>
-        <span class="detail-value">{{ currentUser.email }}</span>
+        <span class="detail-value">{{ currentUser?.email }}</span>
       </div>
     </div>
   </div>
 
-  <ng-template #loading><p>Loading profile...</p></ng-template>
+  <div *ngIf="loading"><p>Loading profile...</p> </div>
 </div>
