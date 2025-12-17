@@ -33,7 +33,7 @@ export class LoginComponent {
         },
         error: (res)=>{
           console.log("Error logging in!")
-          if(res.status = 409){
+          if(res.status === 409){
             // this.toast.error("Email or password incorrect!")
             this.error = "Email or password incorrect!"
           }
