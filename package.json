@@ -14,7 +14,6 @@
   "author": "",
   "type": "commonjs",
   "scripts": {
-
     "start": "nodemon app.js",
     "startall": "concurrently \"npm --prefix backend/user-service start\" \"npm --prefix backend/feedback-service start\" \"npm --prefix backend/order-service start\" \"npm --prefix backend/reservation-service start\" \"npm --prefix backend/table-service start\" \"npm --prefix backend/menuItem-service start\"",
     "test": "jest",

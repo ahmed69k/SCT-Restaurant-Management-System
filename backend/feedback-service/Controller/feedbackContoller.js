@@ -35,20 +35,20 @@ const feedbackController = {
         }
     },
 
-    updateFeedback: async(req,res)=>{
-        try{
-            const {feedbackId} = req.params;
-            const {message, rating} = req.body;
-            const updatedFeedback = await feedbackSchema.findByIdAndUpdate(
-                feedbackId,
-                { description, rating },
-                { new: true }
-            );
-            return res.status(200).json({message: "Feedback updated successfully!", updatedFeedback});
-        }catch(error){
-            return res.status(500).json({message: "Error updating feedback", error});
-        }
-    },
+    // updateFeedback: async(req,res)=>{
+    //     try{
+    //         const {feedbackId} = req.params;
+    //         const {message, rating} = req.body;
+    //         const updatedFeedback = await feedbackSchema.findByIdAndUpdate(
+    //             feedbackId,
+    //             { description, rating },
+    //             { new: true }
+    //         );
+    //         return res.status(200).json({message: "Feedback updated successfully!", updatedFeedback});
+    //     }catch(error){
+    //         return res.status(500).json({message: "Error updating feedback", error});
+    //     }
+    // },
 
     deleteFeedback: async(req,res)=>{
         try{
