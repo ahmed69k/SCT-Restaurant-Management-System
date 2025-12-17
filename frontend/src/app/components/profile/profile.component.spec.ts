@@ -7,6 +7,13 @@ import { AuthService } from '../../shared/AuthService';
 describe('ProfileComponent (US-F-10)', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
+  let mockAuthService: jasmine.SpyObj<AuthService>;
+
+  const mockUser: User = {
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    role: 'Admin'
+  };
 
   it('should create and display current user when logged in', () => {
     TestBed.configureTestingModule({
