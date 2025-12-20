@@ -144,7 +144,7 @@
               {{ isPastReservation(r.date, r.time) ? 'Done' : r.status }}
             </span>
           </td>
-          <td>{{ r.customer?.email || '—' }}</td>
+          <td>{{ r.customer || '—' }}</td>
           <td class="actions">
             <button
               class="btn approve"
